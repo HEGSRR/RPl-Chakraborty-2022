@@ -153,7 +153,7 @@ Optionally, you may load the raw data and begin processing here
 
 ```{r load ACS data, message = F}
 
-acs_2020 <- read_sf(here("data", "raw", "public", "acs.gpkg"))
+acs_2020 <- read_sf(here("data", "raw", "public", "acs2020.gpkg"))
 
 ```
 
@@ -210,30 +210,27 @@ The data was provided by the original author, Jayajit Chakraborty.
 
 ```{r load covid data}
 
-death <- readRDS(
-  here("data","raw","public","death.RDS"))
+death <- readRDS(here("data","raw","public","death.RDS"))
 
 ```
 
 ### Join COVID data to ACS data
 This accomplishes the step 5 of the workflow diagram
 
-```{r join data and reorder columns}
+```{r join data}
 
+# select only relevant variables and typecast geographic identifiers
+# join covid data to demographic data
 death_table <- select(death, county_name, state_fips, county_fips, county_code, excess_deaths_2020, excess_death_rate_2020)
-
 acs_derived$geoid <- as.numeric(acs_derived$geoid)
-
 acs_covid <- left_join(acs_derived, death_table, by = c("geoid" = "county_code")) 
 
 ```
 
 
-
 ## Missing Data
 
-There is one county with missing disability and poverty data. Below, we replace
-the missing data with zeros, producing results identical to Chakraborty's.
+There are two counties with missing data on excess death. Below, we replace the missing data with zeros. 
 
 ```{r missing data} 
 
@@ -247,7 +244,6 @@ acs_covid[is.na(acs_covid$excess_death_rate_2020), ]$excess_death_rate_2020 <- 0
 ```
 
 ## Map Covid Rates
-
 
 ```{r get state geometry}
 
@@ -278,6 +274,7 @@ tm_death_rate <- tm_shape(acs_covid) +
 
 tm_death_rate
 
+tmap_save(tm_death_rate, here("results", "figures", "death_rates.png"))
 ```
 
 ## Map Disability Rates
@@ -299,6 +296,7 @@ tm_disability_rate <- tm_shape(acs_covid) +
 
 tm_disability_rate
 
+tmap_save(tm_disability_rate, here("results", "figures", "disability_rates.png"))
 
 ```
 
@@ -311,6 +309,7 @@ tm_disability_rate
 acs_covid_stats <- acs_covid %>%
   st_drop_geometry() %>%
   select(where(is.numeric)) %>%
+  select(-geoid,-state_fips) %>% 
   stat.desc(norm = TRUE) %>%
   round(2) %>%
   t() %>%
@@ -318,35 +317,6 @@ acs_covid_stats <- acs_covid %>%
   select(min, max, mean, SD = std.dev, ShapiroWilk = normtest.W, p = normtest.p)
 
 acs_covid_stats
-
-```
-
-## Calculate Pearson's R Correlation Coefficients
-
-These results are identical in direction and significance to Chakraborty's,
-but differ slightly in magnitude.
-
-```{r pearsons correlation}
-
-df <- sum(!is.na(acs_covid$dis_pct)) - 2
-
-pearsons_r <- acs_covid %>%
-  select(where(is.numeric)) %>%
-  st_drop_geometry() %>%
-  cor(method = "pearson", use = "pairwise.complete.obs") %>%
-  as.data.frame() %>%
-  select(r = covid_rate) %>%
-  mutate(
-    t = abs(r) / sqrt((1 - r^2) / (df)),
-    p = pt(t, df, lower.tail = FALSE)
-  ) %>%
-  round(3) %>%
-  rownames_to_column("variable") %>%
-  filter(variable != "covid_rate")
-
-pearsons_r
-# this estimation of t gives similar, but not identical, result to corr.test
-# consider trying the rstatix package for this!
 
 ```
 
@@ -363,307 +333,102 @@ df <- sum(!is.na(acs_covid$dis_pct)) - 2
 
 spearmans_rho <- acs_covid %>%
   select(where(is.numeric)) %>%
+  select(-geoid,-state_fips, -excess_deaths_2020) %>% 
   st_drop_geometry() %>%
   cor(method = "spearman", use = "pairwise.complete.obs") %>%
   as.data.frame() %>%
-  select(rho = covid_rate) %>%
+  select(rho = excess_death_rate_2020) %>%
   mutate(
     t = abs(rho) / sqrt((1 - rho^2) / (df)),
     p = pt(t, df, lower.tail = FALSE)
   ) %>%
   round(3) %>%
   rownames_to_column("variable") %>%
-  filter(variable != "covid_rate")
+  filter(variable != "excess_death_rate_2020")
 
 spearmans_rho
 
 ```
 
 
+# Urban rural classification of counties 
 
 
+```{r load classification data}
 
-```{r}
-
-install.packages("readxl")
-library("readxl")
 urbanrural <- read_excel(here("data","raw","public","ruralurbancodes2013.xls"))
 
 ```
 
 
-```{r}
+```{r further classify counties into three categories}
+
 urbanrural <- urbanrural %>% 
   select(-Description) %>% 
-  mutate(code = case_when(RUCC_2013 == 1 | RUCC_2013 == 2 | RUCC_2013 == 3 ~ "metropolitan",
-                          RUCC_2013 == 4 | RUCC_2013 == 5 | RUCC_2013 == 6 | RUCC_2013 == 7 ~ "micropolitan",
-                          RUCC_2013 == 8 | RUCC_2013 == 9 ~"noncore"))
+  mutate(code = case_when(RUCC_2013 == 1 | RUCC_2013 == 2 | RUCC_2013 == 3 ~ 1,
+                          RUCC_2013 == 4 | RUCC_2013 == 5 | RUCC_2013 == 6 | RUCC_2013 == 7 ~ 2,
+                          RUCC_2013 == 8 | RUCC_2013 == 9 ~3)) %>% 
+  mutate(code_exp = case_when(RUCC_2013 == 1 | RUCC_2013 == 2 | RUCC_2013 == 3 ~ "Metropolitan",
+                          RUCC_2013 == 4 | RUCC_2013 == 5 | RUCC_2013 == 6 | RUCC_2013 == 7 ~ "Micropolitan",
+                          RUCC_2013 == 8 | RUCC_2013 == 9 ~"Noncore"))
 
 ```
 
 
+```{r join urban rural classification to demographic variables}
 
 
+urbanrural$FIPS <- as.numeric(urbanrural$FIPS)
 
+acs_covid <- left_join(acs_covid, urbanrural, by = c("geoid" = "FIPS")) 
 
+acs_covid <- acs_covid %>% 
+  select(-c(State, County_Name, Population_2010))
 
+# replace missing data
+filter(acs_covid, is.na(code))
 
+acs_covid[is.na(acs_covid$code), ]$code <- 3
+acs_covid[is.na(acs_covid$code_exp), ]$code_exp <- "Noncore"
 
-
-
-
-
-## Kulldorf Spatial Scan Cluster Detection
-This accomplishes the step 6 of the workflow diagram
-
-Note that the statistic is a Monte Carlo simulation with 999 iterations.
-Therefore, if you wish to exactly reproduce the same results as our reproduction
-attempt, please **do not run this section**.
-Instead, load the scan results below.
-This code block can take more than 10-20 minutes to run.
-
-```{r SpatialEpi Kulldorff spatial scan, eval = FALSE}
-
-covid_geo <- covid_table %>%
-  select(x, y) %>%
-  latlong2grid()
-# latlong2grid approximates an equidistant grid measured in kilometers
-# need to look more into the methods of this, but it surely is not as good
-# as a geodesic calculation. SaTScan uses spherical or ellipsoidal distance
-
-# calculate expected cases with one strata
-expected.cases <- expected(covid_table$pop, covid_table$cases, 1)
-
-# Kulldorff spatial scan statistic
-covid_kulldorff <- kulldorff(
-  geo = covid_geo,
-  cases = covid_table$cases,
-  population = covid_table$pop,
-  expected.cases = expected.cases,
-  pop.upper.bound = 0.5,
-  n.simulations = 999,
-  alpha.level = 0.05,
-  plot = TRUE
-)
-
-rm(covid_table, covid_geo, expected.cases)
-
-```
-
-## Save scan results
-
-```{r save spatial scan results, eval = FALSE}
-
-saveRDS(covid_kulldorff,
-  file = here("data", "derived", "public", "covid_kulldorff.RDS")
-)
-
-```
-
-## Optionally, load scan results
-
-```{r load spatial scan results}
-
-covid_kulldorff <- readRDS(
-  here("data", "derived", "public", "covid_kulldorff.RDS")
-)
-
-print("Most likely cluster:")
-
-covid_kulldorff$most.likely.cluster
-
-print(paste0("Secondary clusters: ", length(covid_kulldorff$secondary.clusters)))
-
-```
-
-## Summarize spatial scan clusters by county
-This accomplishes the step 7 and 8 of the workflow diagram
-
-Summarize the results of the Kulldorff spatial scan cluster detection by cluster
-
-```{r summarize Kulldorff results by cluster}
-
-# Get a list of primary clusters
-primary <- covid_kulldorff$most.likely.cluster$location.IDs.included
-cluster_risk <- covid_table[primary, c(1, 2, 3)] # extract countyID, population and cases  based on location id
-cluster_risk$clusterID <- 0 # create clusterID column
-
-# Get a list of secondary clusters
-secondary <- covid_kulldorff$secondary.clusters
-id <- 1 # initialize clusterID
-
-for (i in secondary) {
-  secondary_temp <- covid_table[i$location.IDs.included, c(1, 2, 3)] 
-  secondary_temp$clusterID <- id
-  cluster_risk <- rbind(cluster_risk, secondary_temp) # appending to primary cluster dataframe
-  id <- id + 1 # each cluster gets a new id
-}
-
-# Calculate total pop and cases for all counties in the US
-total_pop <- sum(covid_table$pop) 
-total_cases <- sum(covid_table$cases)
-
-# Calculate and classify cluster-based relative risk
-cluster_risk <- cluster_risk %>% 
-  group_by(clusterID) %>%
-  mutate(
-    rr_cluster =
-      (sum(cases) / sum(pop)) / ((total_cases - sum(cases)) / (total_pop - sum(pop))),
-    cluster_class =
-      (cut(rr_cluster, c(-Inf, 1, 2, 3, 4, 5, Inf), labels = FALSE))
-  )
-
-covid <- left_join(covid, cluster_risk
-                   %>% dplyr::select(fips, clusterID, rr_cluster, cluster_class),by = "fips")
-
-covid <- covid %>% 
-  mutate(cluster_class = ifelse(is.na(cluster_class), 1, cluster_class))
-
-```
-
-Summarize the results of the Kulldorff spatial scan cluster detection by county
-Code each county `0` if it is not in a cluster and `1` if it is in a cluster.
-
-```{r summarize Kulldorff results by county}
-
-# Calculate and classify Local relative risk
-# Counties outside of any cluster (with cluster risk of 1) are classified as lowest risk (1)
-covid <- covid %>% 
-  mutate( 
-    rr_loc = 
-      (cases / pop) / ((sum(covid$cases) - cases) / (sum(covid$pop) - pop)),
-    loc_class = ifelse(cluster_class > 1, cut(rr_loc, c(-Inf,1,2,3,4,5,Inf), labels=FALSE), 1)
-  ) 
 
 ```
 
 
-### How did the classification work?
+## Map Urban Rural Counties
 
-```{r classification results}
-
-# Count frequency of each class of COVID risk
-cat("Classes of local risk and frequency of counties",
-  format(covid %>% st_drop_geometry %>% count(loc_class)), sep="\n")
-
-cat("\n",
-    sum(covid$cluster==0 & covid$rr_loc >= 1),
-  " counties lie outside of a cluster, but have local relative risk > 1\n\n",
-  sum(covid$cluster==1 & covid$rr_loc < 1),
-  " counties lie inside of a cluster, but have a local relative risk < 1",
-  sep="") 
-
-# There's a relative risk score for both county & cluster (in SatScan)
-# This reproduction uses county-based relative risk scores based on
-# paragraph 4 of the methods section of the paper and Desjardins et al
-
-```
-
-
-```{r}
-cat("Classes of cluster risk and frequency of counties",
-  format(covid %>% st_drop_geometry %>% count(cluster_class)), sep="\n")
-```
-
-## Map Relative Risk Scores
-
-Note that relative risk is > 1 only if the county was in a cluster
-
-```{r prepare original relative risk scores}
-
-original_cluster <- read_sf(here("data", "derived", "public", "satscan", "sat_scan_compare.col.shp"))
-cluster_table <- st_drop_geometry(original_cluster)
-
-covid <- left_join(covid, cluster_table, by = c("fips" = "LOC_ID"))
-
-covid_temp <- covid %>%
-  mutate(rr_original = if_else(is.na(REL_RISK), 0, REL_RISK))
-
-```
 
 
 ```{r map original relative risk scores}
 
-tm4 <- tm_shape(covid_temp) +
-  tm_polygons("rr_original",
-    title = "Original Relative Risk",
-    breaks = c(0, 1, 2, 3, 4, 5, 8),
-    border.alpha = .2,
+tm_urbanrural <- tm_shape(acs_covid) +
+  tm_polygons("code_exp",
+    title = "County Classification",
+    border.alpha = .5,
     lwd = 0.2,
-    palette = "YlOrBr"
-  ) +
-  tm_shape(original_cluster) +
-  tm_borders("red", lwd = .5) +
+    palette = "Pastel1",
+    style = "cat"
+  ) + 
   tm_shape(state) +
   tm_borders("grey", lwd = .8) +
   tmap_options(check.and.fix = TRUE)
 
-tm4
+tm_urbanrural
 
-tmap_save(tm4, here("results", "figures", "rr_original.png"))
-
-```
-
-
-```{r map cluster based relative risk scores}
-
-tm5 <- tm_shape(covid) +
-  tm_polygons("cluster_class",
-    title = "Relative Risk by Cluster",
-    border.alpha = .2,
-    lwd = 0.2,
-    palette = "YlOrBr",
-    style = "cat"
-  ) +
-  tm_shape(state) +
-  tm_borders("grey", lwd = .5) +
-  tmap_options(check.and.fix = TRUE)
-  
-
-tm5
-
-tmap_save(tm5, here("results", "figures", "rr_reproduction_cluster.png"))
+tmap_save(tm_urbanrural, here("results", "figures", "urbanrural.png"))
 
 ```
-
-
-```{r map local relative risk score}
-
-# Map Local Relative Risk scores
-tm3 <- tm_shape(covid) +
-  tm_polygons("loc_class",
-    title = "Local Relative Risk",
-    border.alpha = .2,
-    lwd = 0.2,
-    palette = "YlOrBr",
-    style = "cat"
-  ) +
-  tm_shape(state) +
-  tm_borders("grey", lwd = .5) +
-  tmap_options(check.and.fix = TRUE)
-
-tm3
-tmap_save(tm3, here("results", "figures", "rr_reproduction_loc.png"))
-
-
-```
-
 
 ## Preprocess data for GEE modelling
 This accomplishes the step 9 and 10 of the workflow diagram
 
 ```{r preprocess data for GEE model }
 
-covid_clusters <- covid %>%
-  select(fips, clusterID, rr_cluster, cluster_class) %>% # change to loc_class if calculate local rr
-  st_drop_geometry()
-
-# Filter out non-positive COVID rates and missing data
-# Create unique State - Relative Risk IDs by combining state code and rr_class
+# Create unique State - Urbanrural IDs by combining state code and rr_class
 # Sort by the cluster id's (a requirement of the gee function)
-gee_data <- left_join(acs_covid, covid_clusters, by = c("geoid" = "fips")) %>%
-  filter(covid_rate > 0) %>%
-  mutate(id = as.integer(statefp) * 10 + cluster_class) %>%
+gee_data <- acs_covid %>%
+  filter(!is.na(excess_death_rate_2020)) %>%
+  mutate(id = as.integer(statefp) * 10 + code) %>%
   arrange(id)
 
 
@@ -688,8 +453,6 @@ gee_data <- gee_data %>%
     z_female_pct = scale(female_pct)
   )
 
-
-rm(covid_clusters)
 
 ```
 
@@ -749,10 +512,10 @@ https://data.library.virginia.edu/getting-started-with-generalized-estimating-eq
 # https://www.reddit.com/r/rstats/comments/p50mce/coding_a_loop_for_many_linear_regressions/
 
 race_gee <- geeglm(
-  covid_rate ~ z_white_pct + z_black_pct + z_native_pct + z_asian_pct + z_other_pct,
+  excess_death_rate_2020 ~ z_white_pct + z_black_pct + z_native_pct + z_asian_pct + z_other_pct,
   data = gee_data, # data frame
   id = id, # cluster IDs
-  family = Gamma(link = "log"),
+  family = gaussian(link = "identity"),
   corstr = "exchangeable"
 )
 
@@ -760,34 +523,34 @@ race_gee <- geeglm(
 # coef() extracts coefficients table from the summary, same as $coefficients
 
 ethnicity_gee <- geeglm(
-  covid_rate ~ z_non_hisp_white_pct + z_hisp_pct + z_non_hisp_non_white_pct,
+  excess_death_rate_2020 ~ z_non_hisp_white_pct + z_hisp_pct + z_non_hisp_non_white_pct,
   data = gee_data,
   id = id,
-  family = Gamma(link = "log"),
+  family = gaussian(link = "identity"),
   corstr = "exchangeable"
 )
 
 pov_gee <- geeglm(
-  covid_rate ~ z_bpov_pct + z_apov_pct,
+  excess_death_rate_2020 ~ z_bpov_pct + z_apov_pct,
   data = gee_data,
   id = id,
-  family = Gamma(link = "log"),
+  family = gaussian(link = "identity"),
   corstr = "exchangeable",
 )
 
 age_gee <- geeglm(
-  covid_rate ~ z_pct_5_17 + z_pct_18_34 + z_pct_35_64 + z_pct_65_74 + z_pct_75,
+  excess_death_rate_2020 ~ z_pct_5_17 + z_pct_18_34 + z_pct_35_64 + z_pct_65_74 + z_pct_75,
   data = gee_data,
   id = id,
-  family = Gamma(link = "log"),
+  family = gaussian(link = "identity"),
   corstr = "exchangeable"
 )
 
 sex_gee <- geeglm(
-  covid_rate ~ z_male_pct + z_female_pct,
+  excess_death_rate_2020 ~ z_male_pct + z_female_pct,
   data = gee_data,
   id = id,
-  family = Gamma(link = "log"),
+  family = gaussian(link = "identity"),
   corstr = "exchangeable"
 )
 
@@ -825,94 +588,6 @@ QIC_results <- data.frame(
   select(QIC)
 QIC_results
 
-```
-
-
-```{r preprocess original gee data}
-
-original_gee <- read.csv(here("data", "raw", "public", "chakraborty", "Aug1GEEdata.csv"))
-
-original_processed <- original_gee %>%
-  filter(Incidence > 0) %>%
-  mutate(id = as.integer(COUNTY_FIPS) * 10 + RISK_BIN) %>%
-  arrange(id)
-
-```
-
-
-```{r gee model with author provided data}
-
-race_gee_original <- geeglm(
-  Incidence ~ ZPD_White + ZPD_Black + ZPD_Asian + ZPD_Native + ZPD_OthRac,
-  data = original_processed, # data frame
-  id = id, # cluster IDs
-  family = Gamma(link = "log"),
-  corstr = "exchangeable"
-)
-
-ethnicity_gee_original <- geeglm(
-  Incidence ~ ZPD_NHwhite + ZPD_Hispani + ZPD_NHoth,
-  data = original_processed, # data frame
-  id = id, # cluster IDs
-  family = Gamma(link = "log"),
-  corstr = "exchangeable"
-)
-
-pov_gee_original <- geeglm(
-  Incidence ~ ZPDisBpov + ZPDisApov,
-  data = original_processed, # data frame
-  id = id, # cluster IDs
-  family = Gamma(link = "log"),
-  corstr = "exchangeable"
-)
-
-age_gee_original <- geeglm(
-  Incidence ~ ZPD_age5to17 + ZPDage18to34 + ZPDage35to64 + ZPDage65to74 + ZPDage75,
-  data = original_processed,
-  id = id,
-  family = Gamma(link = "log"),
-  corstr = "exchangeable"
-)
-
-sex_gee_original <- geeglm(
-  Incidence ~ ZPD_Male + ZPD_Female,
-  data = original_processed, # data frame
-  id = id, # cluster IDs
-  family = Gamma(link = "log"),
-  corstr = "exchangeable"
-)
-
-coefficient_results_original <- rbind(
-  coef(summary(race_gee_original)),
-  coef(summary(ethnicity_gee_original)),
-  coef(summary(pov_gee_original)),
-  coef(summary(age_gee_original)),
-  coef(summary(sex_gee_original))
-) %>%
-  round(3)
-
-coefrows <- rownames(coefficient_results_original)
-coefrows[1] <- "Race Intercept"
-coefrows[7] <- "Ethnicity Intercept"
-coefrows[11] <- "Poverty Status Intercept"
-coefrows[14] <- "Age Intercept"
-coefrows[20] <- "Biological Sex Intercept"
-rownames(coefficient_results_original) <- coefrows
-coefficient_results_original
-
-
-QIC_results_original <- data.frame(
-  race = QIC(race_gee_original),
-  ethnicity = QIC(ethnicity_gee_original),
-  poverty_status = QIC(pov_gee_original),
-  age = QIC(age_gee_original),
-  biological_sex = QIC(sex_gee_original)
-) %>%
-  round(3) %>%
-  t() %>%
-  as.data.frame() %>%
-  select(QIC)
-QIC_results_original
 ```
 
 
