@@ -3,44 +3,35 @@ output:
   pdf_document: default
   html_document: default
 ---
-# Rpr-Reproduction of Social Inequities in the distribution of COVID-19: An intra-categorical analysis of people with disabilities in the U.S.
+# Rpi-Replication of Social Inequities in the distribution of COVID-19: An intra-categorical analysis of people with disabilities in the U.S.
 
 Joseph Holler, Department of Geography, Middlebury College, Middlebury VT 05753
-Drew An-Pham, Department of Geography, Middlebury College, Middlebury VT 05753 Derrick Burt, Department of Geography, Middlebury College, Middlebury VT 05753
+Drew An-Pham, Department of Geography, Middlebury College, Middlebury VT 05753 
+Derrick Burt, Department of Geography, Middlebury College, Middlebury VT 05753
 Junyi Zhou, Department of Geography, Middlebury College, Middlebury VT 05753 
 Peter Kedron, School of Geographical Sciences and Urban Planning, Arizona State University, Tempe AZ 85281 
 
-Version 1.3 | Created Jul 7, 2021 | Last Updated June 22, 2022
+Version 0.0 | Created Jul 10, 2022 | Last Updated Jul 10, 2022
 
-# Abstract
-
+## Abstract
 Chakraborty (2021) investigates the relationships between COVID-19 rates and demographic characteristics of people with disabilities by county in the lower 48 states. The study aims to examine public concern that persons with disabilities (PwDs) face disproportionate challenges due to COVID-19. To investigate this, Chakraborty examines the statistical relationship between confirmed county-level COVID-19 case rates and county-level socio-demographic and disability variables. Specifically, Chakraborty tests county-level bivariate correlations between COVID-19 incidence against the percentage of disability and socio-demographic category, with a separate hypothesis and model for each subcategory within disability, race, ethnicity, age, and biological sex. To control for differences between states and geographic clusters of COVID-19 outbreaks, Chakraborty uses five generalized estimating equation (GEE) models to predict the relationship and significance between COVID-19 incidence and disability subgroups within each socio-demographic category while considering inter-county spatial clusters. Chakraborty (2021) finds significant positive relationships between COVID-19 rates and socially vulnerable demographic categories of race, ethnicity, poverty, age, and biological sex.
 
-This reproduction study is motivated by expanding the potential impact of Chakraborty's study for policy, research, and teaching purposes. Measuring the relationship between COVID-19 incidence and socio-demographic and disability characteristics can provide important information for public health policy-making and resource allocation. A fully reproducible study will increase the accessibility, transparency, and potential impact of Chakraborty's (2021) study by publishing a compendium complete with metadata, data, and code. This will allow other researchers to review, extend, and modify the study and will allow students of geography and spatial epidemiology to learn from the study design and methods.
+This replication study is motivated by expanding the potential impact of Chakraborty's study for policy, research, and teaching purposes. In this replication study, we attempt to follow the logic of Chakraborty's study but use new data and alternative methodology to examine temporal changes and test for different hypotheses. We will analyze the relationship between COVID-19 death rate and socio-demographic and disability characteristics, calculate the summary statistics, and apply a weighted Spearman rho's correlation coefficient on measuring the relationship. We also plan to conceptualize geographic clusters in the GEE models using the state in which the county falls into and whether this county is urban or rural. In addition, we will calculate the hot spot and cold spot based on the excess death rate using the Getis-Ord Spatial Cluster statistics and examine disability status.  
 
-In this reproduction, we will attempt to identically reproduce all of the results from the original study. This will include the map of county level distribution of COVID-19 incidence rates (Fig. 1), the summary statistics for disability and sociodemographic variables and bivariate correlations with county-level COVID-19 incidence rate (Table 1), and the GEE models for predicting COVID-19 county-level incidence rate (Table 2). A successful reproduction should be able to generate identical results as published by Chakraborty (2021).
+Through measuring the relationship between death rate during COVID-19 and socio-demographic and disability characteristics, this replication study can provide important information for public health policy-making and resource allocation. It also increases the significance of Chakraborty's study by extending and modifying it with more alternative data and methods, which allows students of geography and spatial epidemiology to learn from the study design and methods.
 
-The replication study data and code will be made available in a GitHub repository to the greatest extent that licensing and file sizes permit. The repository will be made public at [github.com/HEGSRR/RPr-Chakraborty2021](). 
+The replication study data and code will be made available in a GitHub repository to the greatest extent that licensing and file sizes permit. The repository will be made public at [github.com/HEGSRR/RPl-Chakraborty-2022](). 
 
 Chakraborty, J. 2021. Social inequities in the distribution of COVID-19: An intra-categorical analysis of people with disabilities in the U.S. Disability and Health Journal 14:1-5. DOI:[10.1016/j.dhjo.2020.101007]()
 
 ### Keywords
-COVID-19; Disability; Intersectionality; Race/ethnicity; Poverty; Reproducibility
+COVID-19; Disability; Intersectionality; Race/ethnicity; Poverty; Replicability
+
 
 ## Study Design
-The reproduction study will try to implement the original study as closely as possible to reproduce the map of county level distribution of COVID-19 incidence rate, the summary statistics and bivariate correlation for disability characteristics and COVID-19 incidence, and the generalized estimating equations.
-Our two confirmatory hypotheses are that we will be able to exactly reproduce Chakraborty's results as presented in table 1 and table 2 of Chakraborty (2021). Stated as null hypotheses:
-
-> H1: There is a less than perfect match between Chakraborty's bivariate correlation coefficient for each disability/sociodemographic variable and COVID-19 incidence rate and our bivariate correlation coefficient for each disability/sociodemographic variable and COVID-19 incidence rate.
-
-> H2: There is a less than perfect match between Chakraborty's beta coefficient for the GEE of each disability/sociodemographic variable and our beta coefficient for the GEE of each disability/sociodemographic variable.
-
-There are multiple models being tested within each of the two hypotheses. That is, H1 and H2 both encompass five models, including one for each dimension of socio-demographics: race, ethnicity, poverty status, age, and biological sex.
 
 ### Original study design
-
-The original study is **observational**, with the **exploratory** objective of determining "whether COVID-19 incidence is significantly greater in counties containing higher percentages of socio-demographically disadvantaged [people with disabilities], based on their race, ethnicity, poverty status, age, and biological sex" (Chakraborty 2021).
-This exploratory objective is broken down into five implicit hypotheses that each of the demographic characteristics of people with disabilities is associated with higher COVID-19 incidence rates.
+The original study is **observational**, with the **exploratory** objective of determining "whether COVID-19 incidence is significantly greater in counties containing higher percentages of socio-demographically disadvantaged [people with disabilities], based on their race, ethnicity, poverty status, age, and biological sex" (Chakraborty 2021). This exploratory objective is broken down into five implicit hypotheses that each of the demographic characteristics of people with disabilities is associated with higher COVID-19 incidence rates.
 
 The **spatial extent** of the study are the 49 contiguous states in the U.S.
 The **spatial scale** of the analysis is at the county level.
@@ -48,12 +39,23 @@ Both COVID-19 incidence rates and demographic variables are all measured at the 
 The **temporal extent** of the COVID-19 data ranges from 1/22/2020 (when John Hopkins began collecting the data) to 8/1/2020 (when the data was retrieved for the original study).
 The data on disability and sociodemographic characteristics come from the U.S. Census American Community Survey (ACS) five-year estimates for 2018 (2014-2018).
 
-There is no **randomization** in the original study.
-
 The study was originally conducted using SaTScan software (unspecified version) to implement the spatial scan statistic.
 Other software are not specified in the publication; however data files and communication with the author show that spatial analysis and mapping was conducted in ArcGIS and statistics were calculated in SPSS.
 
 
+### Replication study design
+This replication follows the logic of the original study, but is implemented with new data and different methods. In the first part of the replication analysis, we plan to create the maps of county level distribution COVID-19 death rate and disability rate. In the second part, we plan to calculate summary statistics and bivariate weighted correlation for disability characteristics and COVID-19 death rate. In the last part, we plan to implement the generalized estimating equations using five models, including one for each dimension of socio-demographics: race, ethnicity, poverty status, age, and biological sex. We re-conceptualize geographic clusters in the GEE models using the state in which the county falls into and whether this county is urban or rural. We also implemented the Getis-Ord statistics that calculate COVID-19 hotspots and coldspots.  
+
+The **spatial extent** of the study are the 49 contiguous states in the U.S.
+The **spatial scale** of the analysis is at the county level.
+Both COVID-19 death rates and demographic variables are all measured at the county level.
+The **temporal extent** of the COVID-19 data ranges from 1/22/2020 (when John Hopkins began collecting the data) to 7/2/2022 (when we retreived the data for analysis). 
+The data on disability and sociodemographic characteristics come from the U.S. Census American Community Survey (ACS) five-year estimates for 2020 (2016-2020).
+The data on county classification (urban or rural) come from the USDA Economic Research Service Rural-Urban continnum code for 2013. 
+
+The replication study is conducted entirely in R. We uses the `geepack` to implement the generalized estimating equations, the `wCorr` to implemented weighted Spearman Rho's correlation coefficient, `tidycensus` to obtain socio-demographic and poverty data, and the `sf` package for spatial analysis. The mapping is done using the `tmap` package and all other analysis are done using `tidyverse` package. 
+
+### Load Required Packages
 
 ```{r setup, message = FALSE, include = FALSE}
 
@@ -61,7 +63,7 @@ Other software are not specified in the publication; however data files and comm
 packages <- c(
   "tidycensus", "tidyverse", "downloader", "sf", "classInt", "readr",
   "here", "s2", "pastecs", "tmap", "readxl", "svDialogs",
-  "geepack"
+  "geepack", "wCorr"
 )
 
 # load and install required packages
@@ -82,6 +84,7 @@ writeLines(
 )
 
 ```
+
 
 ## Query American Communtity Survey Data
 
@@ -350,6 +353,119 @@ spearmans_rho
 
 ```
 
+```{r}
+install.packages('wCorr')
+library('wCorr')
+```
+
+
+```{r}
+pop_2020 <- get_acs(
+  geography = "county",
+  table = "B01003",
+  year = 2020,
+  output = "wide",
+  cache_table = TRUE
+)
+
+
+pop_2020 <- pop_2020 %>% 
+  select(
+    geoid = GEOID,
+    total_pop = B01003_001E) 
+
+
+pop_2020$geoid <- as.numeric(pop_2020$geoid)
+
+acs_covid <- left_join(acs_covid, pop_2020, by = "geoid")
+```
+
+
+
+```{r}
+
+temp <- acs_covid %>%
+  st_drop_geometry()
+
+temp <- left_join(temp, pop_2020, by = "geoid")
+
+```
+
+
+```{r}
+
+temp <- temp %>%  
+  filter(!is.na(excess_death_rate_2020)) %>%
+  arrange()
+
+
+weightedCorr(y = temp$excess_death_rate_2020, x = temp$dis_pct, weights = temp$total_pop, method = "Spearman")
+weightedCorr(y = temp$excess_death_rate_2020, x = temp$dis_pct, weights = temp$total_pop, method = "Pearson")
+
+
+```
+
+
+```{r}
+
+temp <- temp %>% 
+  select(where(is.numeric)) %>%
+  select(-geoid,-state_fips, -excess_deaths_2020) %>% 
+
+temp <- temp %>% 
+  select(-RUCC_2013, -code)
+
+
+to_do_list <- combn(names(temp),2,simplify = FALSE)
+
+res <- purrr::map_dfr(to_do_list,
+               ~tibble(var_row = .[[1]],
+                       var_col = .[[2]],
+                       wCorr = wCorr::weightedCorr(x = temp[[.[[1]]]],
+                                                   y= temp[[.[[2]]]],
+                                                   weights = temp$total_pop,
+                                                   method = "Spearman"))) 
+
+res <- res[res$var_col == "excess_death_rate_2020", ]
+
+
+
+```
+
+
+```{r}
+
+df <- sum(!is.na(temp$dis_pct)) - 2
+
+spearman_wcorr <- res %>% 
+ select(wCorr) %>% 
+ mutate(
+    t = abs(wCorr) / sqrt((1 - wCorr^2) / (df)),
+    p = pt(t, df, lower.tail = FALSE)
+  ) %>%
+  round(3)
+   
+
+```
+
+
+```{r}
+
+res <- res %>% 
+  mutate(wCorr = round(wCorr,3))
+
+spearman_wcorr %>% 
+  left_join(res, by = "wCorr") %>% 
+  select(-var_col) %>% 
+  select(var_row, everything())
+  
+
+```
+
+
+
+
+
 
 # Urban rural classification of counties 
 
@@ -502,6 +618,11 @@ Generalized Estimating Equation parameters:
 
 Useful Reference:
 https://data.library.virginia.edu/getting-started-with-generalized-estimating-equations/
+
+
+```{r}
+ggplot(acs_covid, aes(x=excess_death_rate_2020)) + geom_histogram()
+```
 
 
 ```{r gee models}
