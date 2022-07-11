@@ -14,7 +14,7 @@ Peter Kedron, School of Geographical Sciences and Urban Planning, Arizona State 
 Version 0.0 | Created Jul 10, 2022 | Last Updated Jul 10, 2022
 
 ## Abstract
-Chakraborty (2021) investigates the relationships between COVID-19 rates and demographic characteristics of people with disabilities by county in the lower 48 states. The study aims to examine public concern that persons with disabilities (PwDs) face disproportionate challenges due to COVID-19. To investigate this, Chakraborty examines the statistical relationship between confirmed county-level COVID-19 case rates and county-level socio-demographic and disability variables. Specifically, Chakraborty tests county-level bivariate correlations between COVID-19 incidence against the percentage of disability and socio-demographic category, with a separate hypothesis and model for each subcategory within disability, race, ethnicity, age, and biological sex. To control for differences between states and geographic clusters of COVID-19 outbreaks, Chakraborty uses five generalized estimating equation (GEE) models to predict the relationship and significance between COVID-19 incidence and disability subgroups within each socio-demographic category while considering inter-county spatial clusters. Chakraborty (2021) finds significant positive relationships between COVID-19 rates and socially vulnerable demographic categories of race, ethnicity, poverty, age, and biological sex.
+Chakraborty (2021) investigates the relationships between COVID-19 rates and demographic characteristics of people with disabilities by county in the lower 48 states.To investigate this, Chakraborty examines the statistical relationship between confirmed county-level COVID-19 case rates and county-level socio-demographic and disability variables. Specifically, Chakraborty tests county-level bivariate correlations between COVID-19 incidence against the percentage of disability and socio-demographic category, with a separate hypothesis and model for each subcategory within disability, race, ethnicity, age, and biological sex. To control for differences between states and geographic clusters of COVID-19 outbreaks, Chakraborty uses five generalized estimating equation (GEE) models to predict the relationship and significance between COVID-19 incidence and disability subgroups within each socio-demographic category while considering inter-county spatial clusters. Chakraborty (2021) finds significant positive relationships between COVID-19 rates and socially vulnerable demographic categories of race, ethnicity, poverty, age, and biological sex.
 
 This replication study is motivated by expanding the potential impact of Chakraborty's study for policy, research, and teaching purposes. In this replication study, we attempt to follow the logic of Chakraborty's study but use new data and alternative methodology to examine temporal changes and test for different hypotheses. We will analyze the relationship between COVID-19 death rate and socio-demographic and disability characteristics, calculate the summary statistics, and apply a weighted Spearman rho's correlation coefficient on measuring the relationship. We also plan to conceptualize geographic clusters in the GEE models using the state in which the county falls into and whether this county is urban or rural. In addition, we will calculate the hot spot and cold spot based on the excess death rate using the Getis-Ord Spatial Cluster statistics and examine disability status.  
 
@@ -298,7 +298,7 @@ urbanrural <- urbanrural %>%
 
 ## Analyses
 
-### Map Covid Rates
+### Map COVID-19 Death Rate
 ```{r get state geometry}
 
 state <- get_acs(geography = "state", 
@@ -397,6 +397,7 @@ spearmans_rho
 
 ### Calculate weighted Spearman Rho's Correlation Coefficient
 ```{r}
+
 pop_2020 <- get_acs(
   geography = "county",
   table = "B01003",
@@ -418,28 +419,48 @@ acs_covid <- left_join(acs_covid, pop_2020, by = "geoid")
 ```
 
 
-
 ```{r}
+wcorr_data <-acs_covid %>% 
+  st_drop_geometry() %>% 
+  select(where(is.numeric)) %>%
+  select(-geoid,-state_fips, -excess_deaths_2020, -RUCC_2013, -code) %>% 
+  filter(!is.na(excess_death_rate_2020)) %>%
+  arrange()
 
-temp <- acs_covid %>%
-  st_drop_geometry()
+pairwise_list <- combn(names(wcorr_data),2, simplify = FALSE)
 
-temp <- left_join(temp, pop_2020, by = "geoid")
+
+df_spearman <- purrr::map_dfr(pairwise_list, ~tibble(variables = .[[1]],
+                                                     dependent_var = .[[2]],
+                                                     Corr = wCorr::weightedCorr(x = wcorr_data[[.[[1]]]],
+                                                                                y = wcorr_data[[.[[2]]]],
+                                                                                method = "Spearman"),
+                                                     wCorr = wCorr::weightedCorr(x = wcorr_data[[.[[1]]]],
+                                                                                 y= wcorr_data[[.[[2]]]],
+                                                                                 weights = wcorr_data$total_pop,
+                                                                                 method = "Spearman")))
+  
+
+df_spearman<- df_spearman[df_spearman$dependent_var == "excess_death_rate_2020", ]
 
 ```
 
 
-```{r}
 
+```{r}
+temp <- acs_covid %>%
+  st_drop_geometry()
+
+temp <- left_join(temp, pop_2020, by = "geoid")
+```
+
+
+```{r}
 temp <- temp %>%  
   filter(!is.na(excess_death_rate_2020)) %>%
   arrange()
-
-
-weightedCorr(y = temp$excess_death_rate_2020, x = temp$dis_pct, weights = temp$total_pop, method = "Spearman")
+weightedCorr(y = wcorr_data$excess_death_rate_2020, x = wcorr_data$dis_pct, weights = wcorr_data$total_pop, method = "Spearman")
 weightedCorr(y = temp$excess_death_rate_2020, x = temp$dis_pct, weights = temp$total_pop, method = "Pearson")
-
-
 ```
 
 
@@ -448,12 +469,11 @@ weightedCorr(y = temp$excess_death_rate_2020, x = temp$dis_pct, weights = temp$t
 temp <- temp %>% 
   select(where(is.numeric)) %>%
   select(-geoid,-state_fips, -excess_deaths_2020) %>% 
-
 temp <- temp %>% 
   select(-RUCC_2013, -code)
-
-
 to_do_list <- combn(names(temp),2,simplify = FALSE)
+
+
 
 res <- purrr::map_dfr(to_do_list,
                ~tibble(var_row = .[[1]],
@@ -461,7 +481,10 @@ res <- purrr::map_dfr(to_do_list,
                        wCorr = wCorr::weightedCorr(x = temp[[.[[1]]]],
                                                    y= temp[[.[[2]]]],
                                                    weights = temp$total_pop,
-                                                   method = "Spearman"))) 
+                                                   method = "Spearman"),
+                       Corr = wCorr::weightedCorr(x = temp[[.[[1]]]],
+                                                  y= temp[[.[[2]]]],
+                                                  method = "Spearman"))) 
 
 res <- res[res$var_col == "excess_death_rate_2020", ]
 
@@ -474,27 +497,32 @@ res <- res[res$var_col == "excess_death_rate_2020", ]
 
 df <- sum(!is.na(temp$dis_pct)) - 2
 
-spearman_wcorr <- res %>% 
- select(wCorr) %>% 
+spearman_res <- df_spearman %>% 
+ select(wCorr, Corr) %>% 
  mutate(
-    t = abs(wCorr) / sqrt((1 - wCorr^2) / (df)),
+    t = abs(Corr) / sqrt((1 - Corr^2) / (df)),
     p = pt(t, df, lower.tail = FALSE)
   ) %>%
+  mutate(
+    wt = abs(wCorr) / sqrt((1 - wCorr^2) / (df)),
+    wp = pt(wt, df, lower.tail = FALSE)
+  ) %>% 
   round(3)
    
-
 ```
 
 
 ```{r}
 
-res <- res %>% 
-  mutate(wCorr = round(wCorr,3))
+df_spearman<- df_spearman %>% 
+  mutate(wCorr = round(wCorr,3),
+         Corr = round(Corr,3))
+  
 
-spearman_wcorr %>% 
-  left_join(res, by = "wCorr") %>% 
-  select(-var_col) %>% 
-  select(var_row, everything())
+spearman_res <- spearman_res %>% 
+  left_join(df_spearman, by = c("wCorr", "Corr")) %>% 
+  select(-dependent_var) %>% 
+  select(variables, everything())
   
 
 ```
@@ -557,7 +585,7 @@ This accomplishes the step 9 and 10 of the workflow diagram
 # Sort by the cluster id's (a requirement of the gee function)
 gee_data <- acs_covid %>%
   filter(!is.na(excess_death_rate_2020)) %>%
-  mutate(id = as.integer(statefp) * 10 + code) %>%
+  mutate(id = interaction(statefp, code)) %>%
   arrange(id)
 
 
@@ -648,6 +676,7 @@ ggplot(acs_covid, aes(x=excess_death_rate_2020)) + geom_histogram()
 race_gee <- geeglm(
   excess_death_rate_2020 ~ z_white_pct + z_black_pct + z_native_pct + z_asian_pct + z_other_pct,
   data = gee_data, # data frame
+  weights = total_pop,
   id = id, # cluster IDs
   family = gaussian(link = "identity"),
   corstr = "exchangeable"
@@ -659,6 +688,7 @@ race_gee <- geeglm(
 ethnicity_gee <- geeglm(
   excess_death_rate_2020 ~ z_non_hisp_white_pct + z_hisp_pct + z_non_hisp_non_white_pct,
   data = gee_data,
+  weights = total_pop,
   id = id,
   family = gaussian(link = "identity"),
   corstr = "exchangeable"
@@ -667,6 +697,7 @@ ethnicity_gee <- geeglm(
 pov_gee <- geeglm(
   excess_death_rate_2020 ~ z_bpov_pct + z_apov_pct,
   data = gee_data,
+  weights = total_pop,
   id = id,
   family = gaussian(link = "identity"),
   corstr = "exchangeable",
@@ -675,6 +706,7 @@ pov_gee <- geeglm(
 age_gee <- geeglm(
   excess_death_rate_2020 ~ z_pct_5_17 + z_pct_18_34 + z_pct_35_64 + z_pct_65_74 + z_pct_75,
   data = gee_data,
+  weights = total_pop,
   id = id,
   family = gaussian(link = "identity"),
   corstr = "exchangeable"
@@ -683,6 +715,7 @@ age_gee <- geeglm(
 sex_gee <- geeglm(
   excess_death_rate_2020 ~ z_male_pct + z_female_pct,
   data = gee_data,
+  weights = total_pop,
   id = id,
   family = gaussian(link = "identity"),
   corstr = "exchangeable"
