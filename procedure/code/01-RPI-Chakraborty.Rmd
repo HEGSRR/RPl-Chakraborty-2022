@@ -6,14 +6,12 @@ output:
 # Rpi-Replication of Social Inequities in the distribution of COVID-19: An intra-categorical analysis of people with disabilities in the U.S.
 
 Joseph Holler, Department of Geography, Middlebury College, Middlebury VT 05753
-Drew An-Pham, Department of Geography, Middlebury College, Middlebury VT 05753 
-Derrick Burt, Department of Geography, Middlebury College, Middlebury VT 05753
 Junyi Zhou, Department of Geography, Middlebury College, Middlebury VT 05753 
 Peter Kedron, School of Geographical Sciences and Urban Planning, Arizona State University, Tempe AZ 85281 
 
 Version 0.0 | Created Jul 10, 2022 | Last Updated Jul 10, 2022
 
-## Abstract
+## Introduction
 Chakraborty (2021) investigates the relationships between COVID-19 rates and demographic characteristics of people with disabilities by county in the lower 48 states.To investigate this, Chakraborty examines the statistical relationship between confirmed county-level COVID-19 case rates and county-level socio-demographic and disability variables. Specifically, Chakraborty tests county-level bivariate correlations between COVID-19 incidence against the percentage of disability and socio-demographic category, with a separate hypothesis and model for each subcategory within disability, race, ethnicity, age, and biological sex. To control for differences between states and geographic clusters of COVID-19 outbreaks, Chakraborty uses five generalized estimating equation (GEE) models to predict the relationship and significance between COVID-19 incidence and disability subgroups within each socio-demographic category while considering inter-county spatial clusters. Chakraborty (2021) finds significant positive relationships between COVID-19 rates and socially vulnerable demographic categories of race, ethnicity, poverty, age, and biological sex.
 
 This replication study is motivated by expanding the potential impact of Chakraborty's study for policy, research, and teaching purposes. In this replication study, we attempt to follow the logic of Chakraborty's study but use new data and alternative methodology to examine temporal changes and test for different hypotheses. We will analyze the relationship between COVID-19 death rate and socio-demographic and disability characteristics, calculate the summary statistics, and apply a weighted Spearman rho's correlation coefficient on measuring the relationship. We also plan to conceptualize geographic clusters in the GEE models using the state in which the county falls into and whether this county is urban or rural. In addition, we will calculate the hot spot and cold spot based on the excess death rate using the Getis-Ord Spatial Cluster statistics and examine disability status.  
@@ -43,10 +41,10 @@ The study was originally conducted using SaTScan software (unspecified version) 
 Other software are not specified in the publication; however data files and communication with the author show that spatial analysis and mapping was conducted in ArcGIS and statistics were calculated in SPSS.
 
 
-### Replication study design
+### Replication study design 
 This replication study follows the logic of the original study, but is implemented with new data and different methods. In the first part of the replication analysis, we plan to create the maps of county level distribution COVID-19 death rate and disability rate. In the second part, we plan to calculate summary statistics and bivariate weighted correlation for disability characteristics and COVID-19 death rate. In the last part, we plan to implement the generalized estimating equations using five models, including one for each dimension of socio-demographics: race, ethnicity, poverty status, age, and biological sex. We re-conceptualize geographic clusters in the GEE models using the state in which the county falls into and whether this county is urban or rural. We also implemented the Getis-Ord statistics that calculate COVID-19 hotspots and coldspots.  
 
-The **spatial extent** of the replication study are the 49 contiguous states in the U.S.
+The **spatial extent** of the replication study are the 48 contiguous states in the U.S.
 The **spatial scale** of the replication analysis is at the county level.
 Both COVID-19 death rates and demographic variables are all measured at the county level.
 The **temporal extent** of the COVID-19 data ranges from 1/22/2020 (when John Hopkins began collecting the data) to 7/2/2022 (when we retreived the data for analysis). 
@@ -62,7 +60,7 @@ The replication study is conducted entirely in R. We uses the `geepack` to imple
 packages <- c(
   "tidycensus", "tidyverse", "downloader", "sf", "classInt", "readr",
   "here", "s2", "pastecs", "tmap", "readxl", "svDialogs",
-  "geepack", "wCorr"
+  "geepack", "wCorr","spdep"
 )
 
 # load and install required packages
@@ -275,7 +273,7 @@ acs_derived <- acs_derived %>%
 
 # select only relevant variables and typecast geographic identifiers
 # join covid data to demographic data
-death_table <- select(death, county_name, state_fips, county_fips, county_code, excess_deaths_2020, excess_death_rate_2020)
+death_table <- select(death, cs_code.x, county_name, state_fips, county_fips, county_code, excess_deaths_2020, excess_death_rate_2020)
 acs_derived$geoid <- as.numeric(acs_derived$geoid)
 acs_covid <- left_join(acs_derived, death_table, by = c("geoid" = "county_code")) 
 
@@ -684,5 +682,92 @@ QIC_results <- data.frame(
 QIC_results
 
 ```
+
+
+```{r}
+acs_covid_spot <- acs_covid %>% 
+  filter(!is.na(excess_death_rate_2020)) %>% 
+  group_by(cs_code.x, excess_death_rate_2020) %>% 
+  summarise()
+
+
+county_coords <- acs_covid_spot %>%
+  st_centroid() %>% # convert polygons to centroid points
+  st_coordinates()
+
+
+thresdist <- county_coords %>% 
+  dnearneigh(0, 110, longlat = TRUE) %>% # use geodesic distance of 110km
+  # distance should be long enough for every feature to have >= one neighbor
+  include.self() # include a county in its own neighborhood (for G*)
+
+thresdist
+```
+
+
+
+```{r}
+
+
+nb.foq <- poly2nb(acs_covid_spot, queen = TRUE, row.names = acs_covid_spot$excess_death_rate_2020)
+#nb.foq
+
+nb.soq <- nblag(nb.foq, 2)
+#nb.soq
+
+foqweights.lw <- nb2listw(nb.foq, zero.policy = T)
+
+```
+
+
+
+```{r}
+
+dwm <- nb2listw(thresdist, zero.policy = T)
+
+acs_covid_spot$locG <- as.vector(localG(acs_covid_spot$excess_death_rate_2020,
+  listw = foqweights.lw,
+  zero.policy = TRUE
+))
+
+summary(acs_covid_spot$locG)
+
+```
+
+
+
+```{r}
+siglevel <- c(1.15, 1.95)
+acs_covid_spot <- acs_covid_spot %>%
+  mutate(sig = cut(locG, c(
+    min(acs_covid_spot$locG),
+    siglevel[2] * -1,
+    siglevel[1] * -1,
+    siglevel[1],
+    siglevel[2],
+    max(acs_covid_spot$locG)
+  )))
+
+
+
+ggplot() +
+  geom_sf(data = acs_covid_spot, aes(fill = sig), color = "white", lwd = 0.1) +
+  scale_fill_manual(
+    values = c("#0000FF80", "#8080FF80", "#FFFFFF80", "#FF808080", "#FF000080"),
+    labels = c("low", "", "insignificant", "", "high"),
+    aesthetics = "fill"
+  ) +
+  guides(fill = guide_legend(title = "Hot Spots")) +
+  labs(title = "Clusters of COVID-19 Excess Death Rate") +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank()
+  )
+```
+
+
+
+
 
 
