@@ -33,7 +33,7 @@ COVID-19; Disability; Intersectionality; Race/ethnicity; Poverty; Replicability
 ### Original study design
 The original study is **observational**, with the **exploratory** objective of determining "whether COVID-19 incidence is significantly greater in counties containing higher percentages of socio-demographically disadvantaged [people with disabilities], based on their race, ethnicity, poverty status, age, and biological sex" (Chakraborty 2021). This exploratory objective is broken down into five implicit hypotheses that each of the demographic characteristics of people with disabilities is associated with higher COVID-19 incidence rates.
 
-The **spatial extent** of the original study are the 49 contiguous states in the U.S.
+The **spatial extent** of the original study are the 48 contiguous states in the U.S.
 The **spatial scale** of the original analysis is at the county level.
 Both COVID-19 incidence rates and demographic variables are all measured at the county level.
 The **temporal extent** of the COVID-19 data ranges from 1/22/2020 (when John Hopkins began collecting the data) to 8/1/2020 (when the data was retrieved for the original study).
@@ -324,7 +324,11 @@ tm_death_rate <- tm_shape(acs_covid) +
   ) +
   tm_shape(state) +
   tm_borders("grey", lwd = .8) +
-  tmap_options(check.and.fix = TRUE)
+  tmap_options(check.and.fix = TRUE) +
+  tm_layout(
+  legend.position = c("left", "bottom"),
+  legend.title.size = 0.8,
+  legend.text.size = 0.5)
 
 tm_death_rate
 
@@ -336,7 +340,7 @@ tmap_save(tm_death_rate, here("results", "figures", "death_rates.png"))
 
 tm_disability_rate <- tm_shape(acs_covid) +
   tm_polygons("dis_pct",
-    title = "Percent with Disability",
+    title = "Percent with Disability\n(ACS 2016-2020)",
     style = "quantile",
     border.alpha = .2,
     lwd = 0.2,
@@ -344,7 +348,11 @@ tm_disability_rate <- tm_shape(acs_covid) +
   ) +
   tm_shape(state) +
   tm_borders("grey", lwd = .8) +
-  tmap_options(check.and.fix = TRUE)
+  tmap_options(check.and.fix = TRUE) +
+  tm_layout(
+  legend.position = c("left", "bottom"),
+  legend.title.size = 0.8,
+  legend.text.size = 0.5)
 
 
 tm_disability_rate
@@ -370,34 +378,9 @@ acs_covid_stats
 
 ```
 
-### Calculate Spearman's Rho Correlation Coefficients
-```{r spearmans correlation}
 
-df <- sum(!is.na(acs_covid$dis_pct)) - 2
-
-spearmans_rho <- acs_covid %>%
-  select(where(is.numeric)) %>%
-  select(-geoid,-state_fips, -excess_deaths_2020) %>% 
-  st_drop_geometry() %>%
-  cor(method = "spearman", use = "pairwise.complete.obs") %>%
-  as.data.frame() %>%
-  select(rho = excess_death_rate_2020) %>%
-  mutate(
-    t = abs(rho) / sqrt((1 - rho^2) / (df)),
-    p = pt(t, df, lower.tail = FALSE)
-  ) %>%
-  round(3) %>%
-  rownames_to_column("variable") %>%
-  filter(variable != "excess_death_rate_2020")
-
-spearmans_rho
-
-```
-
-
-### Calculate weighted Spearman Rho's Correlation Coefficient
-```{r}
-
+### Calculate Spearman Rho's Correlation Coefficient
+```{r load in total population}
 pop_2020 <- get_acs(
   geography = "county",
   table = "B01003",
@@ -419,7 +402,7 @@ acs_covid <- left_join(acs_covid, pop_2020, by = "geoid")
 ```
 
 
-```{r}
+```{r calculate correlation coefficient}
 wcorr_data <-acs_covid %>% 
   st_drop_geometry() %>% 
   select(where(is.numeric)) %>%
@@ -442,58 +425,10 @@ df_spearman <- purrr::map_dfr(pairwise_list, ~tibble(variables = .[[1]],
   
 
 df_spearman<- df_spearman[df_spearman$dependent_var == "excess_death_rate_2020", ]
-
 ```
 
 
-
-```{r}
-temp <- acs_covid %>%
-  st_drop_geometry()
-
-temp <- left_join(temp, pop_2020, by = "geoid")
-```
-
-
-```{r}
-temp <- temp %>%  
-  filter(!is.na(excess_death_rate_2020)) %>%
-  arrange()
-weightedCorr(y = wcorr_data$excess_death_rate_2020, x = wcorr_data$dis_pct, weights = wcorr_data$total_pop, method = "Spearman")
-weightedCorr(y = temp$excess_death_rate_2020, x = temp$dis_pct, weights = temp$total_pop, method = "Pearson")
-```
-
-
-```{r}
-
-temp <- temp %>% 
-  select(where(is.numeric)) %>%
-  select(-geoid,-state_fips, -excess_deaths_2020) %>% 
-temp <- temp %>% 
-  select(-RUCC_2013, -code)
-to_do_list <- combn(names(temp),2,simplify = FALSE)
-
-
-
-res <- purrr::map_dfr(to_do_list,
-               ~tibble(var_row = .[[1]],
-                       var_col = .[[2]],
-                       wCorr = wCorr::weightedCorr(x = temp[[.[[1]]]],
-                                                   y= temp[[.[[2]]]],
-                                                   weights = temp$total_pop,
-                                                   method = "Spearman"),
-                       Corr = wCorr::weightedCorr(x = temp[[.[[1]]]],
-                                                  y= temp[[.[[2]]]],
-                                                  method = "Spearman"))) 
-
-res <- res[res$var_col == "excess_death_rate_2020", ]
-
-
-
-```
-
-
-```{r}
+```{r calculate p and t values}
 
 df <- sum(!is.na(temp$dis_pct)) - 2
 
@@ -512,7 +447,7 @@ spearman_res <- df_spearman %>%
 ```
 
 
-```{r}
+```{r clear up dataframe}
 
 df_spearman<- df_spearman %>% 
   mutate(wCorr = round(wCorr,3),
@@ -525,17 +460,12 @@ spearman_res <- spearman_res %>%
   select(variables, everything())
   
 
+spearman_res
 ```
 
 
-
-
-
-
-# Urban rural classification of counties 
-
+### Urban rural classification of counties 
 ```{r join urban rural classification to demographic variables}
-
 
 urbanrural$FIPS <- as.numeric(urbanrural$FIPS)
 
@@ -544,23 +474,22 @@ acs_covid <- left_join(acs_covid, urbanrural, by = c("geoid" = "FIPS"))
 acs_covid <- acs_covid %>% 
   select(-c(State, County_Name, Population_2010))
 
-# replace missing data
+# there is one county with missing classification
+# manually set it to noncore
 filter(acs_covid, is.na(code))
 
 acs_covid[is.na(acs_covid$code), ]$code <- 3
 acs_covid[is.na(acs_covid$code_exp), ]$code_exp <- "Noncore"
-
-
 ```
 
 
-## Map Urban Rural Counties
+### Map Urban Rural Counties
 
 ```{r map original relative risk scores}
 
 tm_urbanrural <- tm_shape(acs_covid) +
   tm_polygons("code_exp",
-    title = "County Classification",
+    title = "County Classification\nBased on Total Population",
     border.alpha = .5,
     lwd = 0.2,
     palette = "Pastel1",
@@ -568,7 +497,11 @@ tm_urbanrural <- tm_shape(acs_covid) +
   ) + 
   tm_shape(state) +
   tm_borders("grey", lwd = .8) +
-  tmap_options(check.and.fix = TRUE)
+  tmap_options(check.and.fix = TRUE) +
+  tm_layout(
+  legend.position = c("left", "bottom"),
+  legend.title.size = 0.8,
+  legend.text.size = 0.5)
 
 tm_urbanrural
 
@@ -576,7 +509,7 @@ tmap_save(tm_urbanrural, here("results", "figures", "urbanrural.png"))
 
 ```
 
-## Preprocess data for GEE modelling
+### Preprocess data for GEE modelling
 This accomplishes the step 9 and 10 of the workflow diagram
 
 ```{r preprocess data for GEE model }
@@ -613,28 +546,23 @@ gee_data <- gee_data %>%
 
 ```
 
-## Save preprocessed GEE data inputs
-
+### Save preprocessed GEE data inputs
 Optionally, you may save the preprocessed to `data/raw/public/gee_data.gpkg`
-
 ```{r save preprocessed COVID cluster data, eval = FALSE}
 
 write_sf(gee_data, here("data", "derived", "public", "gee_data.gpkg"))
 
 ```
 
-## Load preprocessed GEE input data
-
+### Load preprocessed GEE input data
 Optionally, you may load the preprocessed data from `data/raw/public/gee_data.gpkg`
-
 ```{r load preprocessed COVID cluster data, eval = FALSE}
 
 gee_data <- read_sf(here("data", "derived", "public", "gee_data.gpkg"))
 
 ```
 
-# Report number of unique clusters and histogram of counties per cluster
-
+### Report number of unique clusters and histogram of counties per cluster
 ```{r report unique clusters}
 
 cluster_summary <- gee_data %>%
@@ -661,7 +589,7 @@ Useful Reference:
 https://data.library.virginia.edu/getting-started-with-generalized-estimating-equations/
 
 
-```{r}
+```{r visualize the distribution of excess death rate}
 ggplot(acs_covid, aes(x=excess_death_rate_2020)) + geom_histogram()
 ```
 
