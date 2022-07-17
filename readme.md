@@ -1,4 +1,4 @@
-# Reproduction of Chakraborty 2021 analysis of unequal distribution of COVID-19 for people with disabilities
+# Replication of Chakraborty 2021 analysis of unequal distribution of COVID-19 for people with disabilities
 
 This study is a replication of:
 
@@ -11,9 +11,7 @@ This study is a replication of:
 ## Authors
 
 - [Joseph Holler](http://www.middlebury.edu/academics/geog/faculty/node/454160)
-- [Drew An-Pham](https://daptx.github.io/)
 - [Peter Kedron](https://sgsup.asu.edu/peter-kedron)
-- [Derrick Burt](https://derrickburt.github.io)
 - [Junyi Zhou](https://emilyzhou112.github.io)
 
 ## Repository Documents
