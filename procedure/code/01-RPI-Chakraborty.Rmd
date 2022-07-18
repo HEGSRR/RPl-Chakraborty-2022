@@ -164,10 +164,16 @@ acs_2020 <- read_sf(here("data", "raw", "public", "acs2020.gpkg"))
 
 ```
 
-### Load COVID-19 data
-```{r load covid data}
+### Load COVID-19 data 
 
-death <- readRDS(here("data","raw","public","death.RDS"))
+
+```{r load and save covid data}
+
+githubURL <- ("https://github.com/Vital-Stats-Integrity-Proj/county-level-estimates-of-excess-mortality/raw/master/final_data/fitted_and_actual_deaths_county_sets_2020_W2020_wash_6_3_countyrow.rds")
+
+death <- readRDS(url(githubURL))
+
+saveRDS(death, file = here("data", "raw", "private", "excess_death.RDS"))
 
 ```
 
