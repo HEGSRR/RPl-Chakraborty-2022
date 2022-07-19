@@ -15,7 +15,7 @@
             <pubdate>20220719</pubdate>
             <title>Replication of Chakraborty 2021 Distribution of COVID-19 and Intra-categorical Analysis of People with Disabilities</title>
             <geoform>publication</geoform>
-            <othercit>Holler, J., Kedron, P., &amp; Zhou, J. (2021). Replication of Chakraborty 2021 analysis of unequal distribution of COVID-19 for people with disabilities. https://doi.org/10.17605/OSF.IO/S5MTQ</othercit>
+            <othercit>Holler, J., Kedron, P., &amp; Zhou, J. (2021). Replication of Chakraborty 2021 analysis of unequal distribution of COVID-19 for people with disabilities.</othercit>
             <onlink>https://github.com/HEGSRR/RPl-Chakraborty-2022/tree/main/data/derived/public</onlink>
           </citeinfo>
         </lworkcit>
@@ -290,7 +290,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>dis_pct</attrlabl>
         <attrdef>Percentage of people with disability </attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>3.826145326397047</rdommin>
             <rdommax>33.70578716190183</rdommax>
           </rdom>
@@ -300,7 +301,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>white_pct</attrlabl>
         <attrdef>Percentage of people who have a disability and are White</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>0.852193350097793</rdommin>
             <rdommax>33.25884256761963</rdommax>
           </rdom>
@@ -310,7 +312,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>black_pct</attrlabl>
         <attrdef>Percentage of people who have a disability and are Black</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>0.0</rdommin>
             <rdommax>20.70242503882451</rdommax>
           </rdom>
@@ -320,7 +323,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>native_pct</attrlabl>
         <attrdef>Percentage of people who have a disability and are Native American</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>0.0</rdommin>
             <rdommax>13.735996103263517</rdommax>
           </rdom>
@@ -330,7 +334,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>asian_pct</attrlabl>
         <attrdef>Percentage of people who have a disability and are Asian</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>0.0</rdommin>
             <rdommax>3.453114767730736</rdommax>
           </rdom>
@@ -340,7 +345,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>other_pct</attrlabl>
         <attrdef>Percentage of people who have a disability and are other races</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>0.0</rdommin>
             <rdommax>15.236325206807333</rdommax>
           </rdom>
@@ -350,7 +356,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>non_hisp_white</attrlabl>
         <attrdef>Percentage of population who are non-hispanic white</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>0.102590002998785</rdommin>
             <rdommax>33.15866533097018</rdommax>
           </rdom>
@@ -360,7 +367,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>hisp_pct</attrlabl>
         <attrdef>Percentage of people who have a disability and are hispanic</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>0.0</rdommin>
             <rdommax>25.2617551875119</rdommax>
           </rdom>
@@ -370,7 +378,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>non_hisp_non_white_pct</attrlabl>
         <attrdef>Percentage of people who have a disability and are non-hispanic and non-white</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>0.0</rdommin>
             <rdommax>20.9293991159957</rdommax>
           </rdom>
@@ -380,7 +389,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>bpov_pct</attrlabl>
         <attrdef>Percentage of people who have a disability and are below poverty</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>0.0</rdommin>
             <rdommax>14.97102382485512</rdommax>
           </rdom>
@@ -390,7 +400,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>apov_pct</attrlabl>
         <attrdef>Percentage of people who have a disability and are above poverty</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>0.0</rdommin>
             <rdommax>27.298444130127297</rdommax>
           </rdom>
@@ -400,7 +411,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>pct_5_17</attrlabl>
         <attrdef>Percentage of people who have a disability and are between 5 and 17</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>0.0</rdommin>
             <rdommax>5.08280982295831</rdommax>
           </rdom>
@@ -410,7 +422,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>pct_18_34</attrlabl>
         <attrdef>Percentage of people who have a disability and are between 18 and 34</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>0.0</rdommin>
             <rdommax>5.58642878034513</rdommax>
           </rdom>
@@ -420,7 +433,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>pct_35_64</attrlabl>
         <attrdef>Percentage of people who have a disability and are between 35 and 64</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>1.118881118881119</rdommin>
             <rdommax>18.363939899833053</rdommax>
           </rdom>
@@ -430,7 +444,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>pct_65_74</attrlabl>
         <attrdef>Percentage of people who have a disability and are between 65 and 74</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>0.0</rdommin>
             <rdommax>12.729844413012732</rdommax>
           </rdom>
@@ -440,7 +455,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>pct_75</attrlabl>
         <attrdef>Percentage of people who have a disability and are above 75</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>0.60882800608828</rdommin>
             <rdommax>11.12781954887218</rdommax>
           </rdom>
@@ -450,7 +466,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>male_pct</attrlabl>
         <attrdef>Percentage of people who have a disability and are male</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>1.299907149489322</rdommin>
             <rdommax>18.19424554094519</rdommax>
           </rdom>
@@ -460,7 +477,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>female_pct</attrlabl>
         <attrdef>Percentage of people who have a disability and are female</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>1.907478883481568</rdommin>
             <rdommax>19.943422913719942</rdommax>
           </rdom>
@@ -510,7 +528,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>z_bpov_pct</attrlabl>
         <attrdef>Standardized percentage of disability below poverty level</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>-1.93853475287934</rdommin>
             <rdommax>6.14939729896877</rdommax>
           </rdom>
@@ -520,7 +539,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>z_apov_pct</attrlabl>
         <attrdef>Standardized percentage of disability above poverty level</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>-4.093746855823872</rdommin>
             <rdommax>4.853374993107749</rdommax>
           </rdom>
@@ -530,7 +550,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>z_white_pct</attrlabl>
         <attrdef>Standardized Percentage of people who have a disability and are white</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>-2.738156160462077</rdommin>
             <rdommax>4.249195846985644</rdommax>
           </rdom>
@@ -540,7 +561,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>z_black_pct</attrlabl>
         <attrdef>Standardized Percentage of people who have a disability and are black</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>-0.562677447480715</rdommin>
             <rdommax>7.187310062034542</rdommax>
           </rdom>
@@ -550,7 +572,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>z_native_pct</attrlabl>
         <attrdef>Standardized Percentage of people who have a disability and are native American</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>-0.300224648081442</rdommin>
             <rdommax>14.158389490160655</rdommax>
           </rdom>
@@ -560,7 +583,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>z_asian_pct</attrlabl>
         <attrdef>Standardized Percentage of people who have a disability and are asian</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>-0.511175685638967</rdommin>
             <rdommax>18.823936778747623</rdommax>
           </rdom>
@@ -570,7 +594,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>z_other_pct</attrlabl>
         <attrdef>Standardized Percentage of people who have a disability and are other races</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>-0.852367678544717</rdommin>
             <rdommax>22.698165103942006</rdommax>
           </rdom>
@@ -580,7 +605,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>z_non_hisp_white_pct</attrlabl>
         <attrdef>Standardized Percentage of people who have a disability and are non-hispanic white</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>-2.640741263676013</rdommin>
             <rdommax>4.215802850099098</rdommax>
           </rdom>
@@ -590,7 +616,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>z_hisp_pct</attrlabl>
         <attrdef>Standardized Percentage of people who have a disability and are hispanic</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>-0.459918150975744</rdommin>
             <rdommax>11.286022976636895</rdommax>
           </rdom>
@@ -600,7 +627,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>z_non_hisp_non_white_pct</attrlabl>
         <attrdef>Standardized Percentage of people who have a disability and are non-hispanic and non-white</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>-0.781974122228838</rdommin>
             <rdommax>6.796658103965106</rdommax>
           </rdom>
@@ -610,7 +638,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>z_pct_5_17</attrlabl>
         <attrdef>Standardized Percentage of people who have a disability and are between 5 and 17</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>-2.185448685041473</rdommin>
             <rdommax>8.532256454806173</rdommax>
           </rdom>
@@ -620,7 +649,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>z_pct_18_34</attrlabl>
         <attrdef>Standardized Percentage of people who have a disability and are between 18 and 34</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>-2.35809729641233</rdommin>
             <rdommax>6.018297245852447</rdommax>
           </rdom>
@@ -630,7 +660,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>z_pct_35_64</attrlabl>
         <attrdef>Standardized Percentage of people who have a disability and are between 35 and 64</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>-2.285335161021667</rdommin>
             <rdommax>5.218339671866306</rdommax>
           </rdom>
@@ -640,7 +671,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>z_pct_65_74</attrlabl>
         <attrdef>Standardized Percentage of people who have a disability and are between 65 and 74</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>-2.715535679917382</rdommin>
             <rdommax>8.478863569957532</rdommax>
           </rdom>
@@ -650,7 +682,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>z_pct_75</attrlabl>
         <attrdef>Standardized Percentage of people who have a disability and are above 75</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>-2.760735080104013</rdommin>
             <rdommax>6.166844368889969</rdommax>
           </rdom>
@@ -660,7 +693,8 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <attrlabl>z_male_pct</attrlabl>
         <attrdef>Standardized Percentage of people who have a disability and are male</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv><rdom>
+        <attrdomv>
+          <rdom>
             <rdommin>-2.861365014336787</rdommin>
             <rdommax>4.284709859503303</rdommax>
           </rdom>
@@ -725,7 +759,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>dis_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Percentage of people with disability </attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -736,7 +770,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>white_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Percentage of people who have a disability and are White</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -747,7 +781,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>black_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Percentage of people who have a disability and are Black</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -758,7 +792,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>native_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Percentage of people who have a disability and are Native American</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -769,7 +803,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>asian_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Percentage of people who have a disability and are Asian</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -780,7 +814,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>other_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Percentage of people who have a disability and are other races</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -791,7 +825,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>non_hisp_white_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Percentage of population who are non-hispanic white</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -802,7 +836,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>hisp_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Percentage of people who have a disability and are hispanic</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -813,7 +847,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>non_hisp_non_white_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Percentage of people who have a disability and are non-hispanic and non-white</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -824,7 +858,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>bpov_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Percentage of people who have a disability and are below poverty</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -835,7 +869,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>apov_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Percentage of people who have a disability and are above poverty</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -846,7 +880,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>pct_5_17</attrlabl>
-        <attrdef/>
+        <attrdef>Percentage of people who have a disability and are between 5 and 17</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -857,7 +891,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>pct_18_34</attrlabl>
-        <attrdef/>
+        <attrdef>Percentage of people who have a disability and are between 18 and 34</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -868,7 +902,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>pct_35_64</attrlabl>
-        <attrdef/>
+        <attrdef>Percentage of people who have a disability and are between 35 and 64</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -879,7 +913,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>pct_65_74</attrlabl>
-        <attrdef/>
+        <attrdef>Percentage of people who have a disability and are between 65 and 74</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -890,7 +924,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>pct_75</attrlabl>
-        <attrdef/>
+        <attrdef>Percentage of people who have a disability and are above 75</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -901,7 +935,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>male_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Percentage of people who have a disability and are male</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -912,7 +946,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>female_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Percentage of people who have a disability and are female</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -923,7 +957,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>county_name</attrlabl>
-        <attrdef/>
+        <attrdef>name of county</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <udom/>
@@ -931,7 +965,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>state_fips</attrlabl>
-        <attrdef/>
+        <attrdef>state code</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -942,7 +976,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>county_fips</attrlabl>
-        <attrdef/>
+        <attrdef>county code</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -953,7 +987,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>excess_deaths_2020</attrlabl>
-        <attrdef/>
+        <attrdef>number of excess death</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -964,7 +998,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>excess_death_rate_2020</attrlabl>
-        <attrdef/>
+        <attrdef>excess death rate</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -975,7 +1009,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>RUCC_2013</attrlabl>
-        <attrdef/>
+        <attrdef>original county classification code</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -986,7 +1020,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>code</attrlabl>
-        <attrdef/>
+        <attrdef>processed county classification code</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -996,7 +1030,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         </attrdomv>
       </attr>
       <attr>
-  <attrlabl>code_exp</attrlabl><attrdef/><attrdefs>Producer Defined</attrdefs><attrdomv>
+  <attrlabl>code_exp</attrlabl><attrdef>explanation of county classification</attrdef><attrdefs>Producer Defined</attrdefs><attrdomv>
     <edom>
       <edomv>Metropolitan</edomv>
       <edomvd>
@@ -1023,7 +1057,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
 </attr>
       <attr>
         <attrlabl>total_pop</attrlabl>
-        <attrdef/>
+        <attrdef>county total population</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -1034,7 +1068,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>id</attrlabl>
-        <attrdef/>
+        <attrdef>cluster id</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -1045,7 +1079,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>z_bpov_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Standardized percentage of disability below poverty level</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -1056,7 +1090,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>z_apov_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Standardized percentage of disability above poverty level</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -1067,7 +1101,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>z_white_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Standardized Percentage of people who have a disability and are white</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -1078,7 +1112,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>z_black_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Standardized Percentage of people who have a disability and are black</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -1089,7 +1123,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>z_native_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Standardized Percentage of people who have a disability and are native American</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -1100,7 +1134,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>z_asian_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Standardized Percentage of people who have a disability and are asian</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -1111,7 +1145,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>z_other_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Standardized Percentage of people who have a disability and are other races</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -1122,7 +1156,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>z_non_hisp_white_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Standardized Percentage of people who have a disability and are non-hispanic white</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -1133,7 +1167,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>z_hisp_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Standardized Percentage of people who have a disability and are hispanic</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -1144,7 +1178,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>z_non_hisp_non_white_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Standardized Percentage of people who have a disability and are non-hispanic and non-white</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -1155,7 +1189,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>z_pct_5_17</attrlabl>
-        <attrdef/>
+        <attrdef>Standardized Percentage of people who have a disability and are between 5 and 17</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -1166,7 +1200,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>z_pct_18_34</attrlabl>
-        <attrdef/>
+        <attrdef>Standardized Percentage of people who have a disability and are between 18 and 34</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -1177,7 +1211,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>z_pct_35_64</attrlabl>
-        <attrdef/>
+        <attrdef>Standardized Percentage of people who have a disability and are between 35 and 64</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -1188,7 +1222,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>z_pct_65_74</attrlabl>
-        <attrdef/>
+        <attrdef>Standardized Percentage of people who have a disability and are between 65 and 74</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -1199,7 +1233,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>z_pct_75</attrlabl>
-        <attrdef/>
+        <attrdef>Standardized Percentage of people who have a disability and are above 75</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -1210,7 +1244,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>z_male_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Standardized Percentage of people who have a disability and are male</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -1221,7 +1255,7 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
       </attr>
       <attr>
         <attrlabl>z_female_pct</attrlabl>
-        <attrdef/>
+        <attrdef>Standardized Percentage of people who have a disability and are female</attrdef>
         <attrdefs>Producer Defined</attrdefs>
         <attrdomv>
           <rdom>
@@ -1252,17 +1286,17 @@ Please refer to our Rmarkdown code (01-RPI-Chakraborty.Rmd) for more information
         <cntemail>josephh@middlebury.edu</cntemail>
       </cntinfo>
     </distrib>
-    <distliab>Users are free to use the dataset but redistribution of the dataset must retain the copyright notice under the  BSD 3-Clause License and the work should be properly cited as: Holler, J., Kedron, P., An-Pham, D., Burt, D., &amp; Zhou, J. (2022, June 16). Reproduction of Chakraborty 2021 Distribution of COVID-19 and intra-categorical analysis of people with disabilities. https://doi.org/10.17605/OSF.IO/S5MTQ </distliab>
+    <distliab>Users are free to use the dataset but redistribution of the dataset must retain the copyright notice under the  BSD 3-Clause License and the work should be properly cited as: Holler, J., Kedron, P., &amp; Zhou, J. (2021). Replication of Chakraborty 2021 analysis of unequal distribution of COVID-19 for people with disabilities.</distliab>
     <stdorder>
       <digform><digtinfo>
           <formname>Digital Data</formname>
         </digtinfo>
-        <digtopt><onlinopt><computer><networka><networkr> https://doi.org/10.17605/OSF.IO/S5MTQ </networkr></networka></computer></onlinopt></digtopt></digform>
+        <digtopt><onlinopt><computer><networka><networkr>https://github.com/HEGSRR/RPl-Chakraborty-2022/tree/main/data/derived/public</networkr></networka></computer></onlinopt></digtopt></digform>
       <fees>None</fees>
     </stdorder>
   </distinfo>
   <metainfo>
-    <metd>20220616</metd>
+    <metd>20220719</metd>
     <metc>
       <cntinfo>
         <cntperp>
