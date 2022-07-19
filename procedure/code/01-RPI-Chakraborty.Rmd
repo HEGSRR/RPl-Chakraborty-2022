@@ -145,6 +145,29 @@ acs_2020 <- left_join(acs_2020, pov_2020, by = "GEOID")
 
 ```
 
+
+```{r}
+pop_2020 <- get_acs(
+  geography = "county",
+  table = "B01003",
+  year = 2020,
+  output = "wide",
+  cache_table = TRUE
+)
+
+
+pop_2020 <- pop_2020 %>% 
+  select(
+    GEOID = GEOID,
+    total_pop = B01003_001E) 
+
+
+#pop_2020$geoid <- as.numeric(pop_2020$geoid)
+
+acs_2020 <- left_join(acs_2020, pop_2020, by = "GEOID")
+```
+
+
 ### Save ACS raw data
 Optionally, you may save the raw data to data/raw/public/acs.gpkg
 
@@ -165,8 +188,6 @@ acs_2020 <- read_sf(here("data", "raw", "public", "acs2020.gpkg"))
 ```
 
 ### Load COVID-19 data 
-
-
 ```{r load and save covid data}
 
 githubURL <- ("https://github.com/Vital-Stats-Integrity-Proj/county-level-estimates-of-excess-mortality/raw/master/final_data/fitted_and_actual_deaths_county_sets_2020_W2020_wash_6_3_countyrow.rds")
@@ -270,6 +291,7 @@ acs_derived <- acs_derived %>%
     statefp = STATEFP,
     county = NAME.x,
     county_st = NAME,
+    total_pop = total_pop,
     contains("pct")
   ) %>%
   st_transform(5070)
@@ -450,7 +472,7 @@ acs_covid <- left_join(acs_covid, pop_2020, by = "geoid")
 wcorr_data <-acs_covid %>% 
   st_drop_geometry() %>% 
   select(where(is.numeric)) %>%
-  select(-geoid,-state_fips, -excess_deaths_2020, -RUCC_2013, -code) %>% 
+  select(-geoid,-state_fips, -excess_deaths_2020) %>% 
   filter(!is.na(excess_death_rate_2020)) %>%
   arrange()
 
@@ -474,7 +496,7 @@ df_spearman<- df_spearman[df_spearman$dependent_var == "excess_death_rate_2020",
 
 ```{r calculate p and t values}
 
-df <- sum(!is.na(temp$dis_pct)) - 2
+df <- sum(!is.na(acs_covid$dis_pct)) - 2
 
 spearman_res <- df_spearman %>% 
  select(wCorr, Corr) %>% 
