@@ -1,0 +1,317 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Center for System Science in Engineering at Johns Hopkins University</origin>
+        <pubdate>20200110</pubdate>
+        <title>County Level COVID-19 Excess Death Rate</title>
+        <geoform>vector digital data</geoform>
+        <onlink>https://github.com/Vital-Stats-Integrity-Proj/county-level-estimates-of-excess-mortality</onlink>
+        <lworkcit>
+          <citeinfo>
+            <origin>Ackley, C. A., Lundberg, D. J., Ma, L., Elo, I. T., Preston, S. H., &amp; Stokes, A. C.</origin>
+            <pubdate>20200122</pubdate>
+            <title>County-level estimates of excess mortality associated with COVID-19 in the United States</title>
+            <geoform>vector digital data</geoform>
+            <othercit>Ackley, C. A., Lundberg, D. J., Ma, L., Elo, I. T., Preston, S. H., &amp; Stokes, A. C. (2022). County-level estimates of excess mortality associated with COVID-19 in the United States. SSM-population health, 17, 101021.</othercit>
+            <onlink>https://github.com/Vital-Stats-Integrity-Proj/county-level-estimates-of-excess-mortality</onlink>
+          </citeinfo>
+        </lworkcit>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>This dataset is derived from an estimation of expected mortality based on historical trends in deaths by county of residence between 2011 and 2019. It was originally used to generate estimates of excess mortality and excess deaths not assigned to COVID-19 in 2020 for 1470 county sets in the US representing 3138 counties. </abstract>
+      <purpose>We are using the dataset to study whether COVID-19 death rate is more significant in counties with larger proportions of socio-demographically disadvantaged people with disabilities, based on race, ethnicity, poverty status, and biological sex, controlling for spatial clusters. </purpose>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <rngdates>
+          <begdate>20201231</begdate>
+          <enddate>20210603</enddate>
+        </rngdates>
+      </timeinfo>
+      <current>ground condition</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>None planned</update>
+    </status>
+    <spdom>
+      <bounding>
+        <westbc>-124.7387</westbc>
+        <eastbc>-66.9501</eastbc>
+        <northbc>49.3844</northbc>
+        <southbc>24.5211</southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>ISO 19115 Topic Category</themekt>
+        <themekey>health</themekey>
+      </theme>
+      <theme>
+        <themekt>None</themekt>
+        <themekey/>
+      </theme>
+      <place>
+        <placekt>None</placekt>
+        <placekey>COVID-19</placekey>
+      </place>
+      <place>
+        <placekt>Common geographic areas</placekt>
+        <placekey>United States</placekey>
+      </place>
+    </keywords>
+    <accconst>The data is open access under the Creative Commons Attribution 4.0 International (CC BY 4.0)</accconst>
+    <useconst>Anyone who use the data need to provide credit by citing Ackley, C. A., Lundberg, D. J., Ma, L., Elo, I. T., Preston, S. H., &amp; Stokes, A. C. (2022). County-level estimates of excess mortality associated with COVID-19 in the United States. SSM-population health, 17, 101021.</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntperp>
+          <cntper>Andrew Stokes</cntper>
+          <cntorg>Boston University School of Public Health</cntorg>
+        </cntperp>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>801 Massachusetts Ave</address>
+          <city>Boston</city>
+          <state>MA</state>
+          <postal>02118</postal>
+          <country>US</country>
+        </cntaddr>
+        <cntvoice>6173582444</cntvoice>
+        <cntemail>acstokes@bu.edu</cntemail>
+      </cntinfo>
+    </ptcontac>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>We created a map visualizing the COVID-19 excess death rate as well as the summary statistics of COVID death rate (min, max, standard deviation, and mean) and we compared our result to Chakraborty's original results to see if similar pattern holds. </attraccr>
+    </attracc>
+    <logic>We have checked for the relevance of the dataset and only include the six columns that are relevant to our analysis. </logic>
+    <complete>The dataset only includes data on the contiguous states. There are two counties with missing data on excess death rate. </complete>
+    <lineage>
+      <srcinfo>
+        <srccite>
+          <citeinfo>
+            <origin>Ackley, C. A., Lundberg, D. J., Ma, L., Elo, I. T., Preston, S. H., &amp; Stokes, A. C.</origin>
+            <pubdate>20220110</pubdate>
+            <title>County-level estimates of excess mortality associated with COVID-19 in the United States</title>
+            <geoform>vector digital data</geoform>
+            <onlink>https://github.com/Vital-Stats-Integrity-Proj/county-level-estimates-of-excess-mortality</onlink>
+          </citeinfo>
+        </srccite>
+        <typesrc>Digital and/or Hardcopy</typesrc>
+        <srctime>
+          <timeinfo>
+            <rngdates>
+              <begdate>20201231</begdate>
+              <enddate>20220603</enddate>
+            </rngdates>
+          </timeinfo>
+          <srccurr/>
+        </srctime>
+        <srccitea>County Level COVID-19 Excess Death Rate</srccitea>
+        <srccontr>Boston University School of Public Health</srccontr>
+      </srcinfo>
+      <procstep>
+        <procdesc>The dataset is downloaded from the paper by Ackley, C. A.,etal. and preprocessed in the RStudio for analysis. 
+We selected columns that are relevant to our analysis to use and combined the dataset with socio-demographic and poverty variables by GEOID,</procdesc>
+        <procdate>20220719</procdate>
+        <proccont>
+          <cntinfo>
+            <cntperp>
+              <cntper>Jospeh Holler </cntper>
+              <cntorg>Middlebury College</cntorg>
+            </cntperp>
+            <cntpos>Assisstant Professor of Geography</cntpos>
+            <cntaddr>
+              <addrtype>mailing and physical</addrtype>
+              <address>McCardell Bicentennial Hall 634</address>
+              <city>Middlebury</city>
+              <state>VT</state>
+              <postal>05753</postal>
+              <country>US</country>
+            </cntaddr>
+            <cntvoice>8024435992</cntvoice>
+            <cntemail>josephh@middlebury.edu</cntemail>
+          </cntinfo>
+        </proccont>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <spdoinfo>
+    <direct>Vector</direct>
+    <ptvctinf>
+      <sdtsterm>
+        <sdtstype>G-polygon</sdtstype>
+        <ptvctcnt>3108</ptvctcnt>
+      </sdtsterm>
+    </ptvctinf>
+  </spdoinfo>
+  <spref>
+    <horizsys>
+      <planar>
+        <mapproj>
+          <mapprojn>Mercator_1SP</mapprojn>
+          <mapprojp>
+            <stdparll>0.0</stdparll>
+            <stdparll>0.0</stdparll>
+            <longcm>0.0</longcm>
+            <latprjo>0.0</latprjo>
+            <feast>0.0</feast>
+            <fnorth>0.0</fnorth>
+          </mapprojp>
+        </mapproj>
+        <planci>
+          <plance>coordinate pair</plance>
+          <coordrep>
+            <absres>0.6096</absres>
+            <ordres>0.6096</ordres>
+          </coordrep>
+          <plandu>meters</plandu>
+        </planci>
+      </planar>
+      <geodetic>
+        <horizdn>WGS_1984</horizdn>
+        <ellips>WGS 84</ellips>
+        <semiaxis>6378137.0</semiaxis>
+        <denflat>298.257223563</denflat>
+      </geodetic>
+    </horizsys>
+  </spref>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>death_temp.csv</enttypl>
+        <enttypd>Comma Separated Value (CSV) file containing data.</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Unnamed: 0</attrlabl>
+        <attrdef/>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>1</rdommin>
+            <rdommax>3138</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>cs_code.x</attrlabl>
+        <attrdef>county clusters </attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <udom/>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>year</attrlabl>
+        <attrdef>year of data collection</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>2020</rdommin>
+            <rdommax>2020</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>state</attrlabl>
+        <attrdef>name of state</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <udom/>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>cs_name</attrlabl>
+        <attrdef>individual county name</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <udom/>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>excess_deaths_2020</attrlabl>
+        <attrdef>excess deaths</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>-218.697858550897</rdommin>
+            <rdommax>15955.4373274248</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>excess_death_rate_2020</attrlabl>
+        <attrdef>excess death rate</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>-0.929632303023551</rdommin>
+            <rdommax>6.24684309176366</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <overview>
+      <eaover>There are 3108 observations in the dataset. However, many of them could form county clusters and all counties in the cluster share the same attribute data. 
+</eaover>
+      <eadetcit/>
+    </overview>
+  </eainfo>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntperp>
+          <cntper>Andrew Stokes</cntper>
+          <cntorg>Boston University School of Public Health</cntorg>
+        </cntperp>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>801 Massachusetts Ave</address>
+          <city>Boston</city>
+          <state>MA</state>
+          <postal>02118</postal>
+          <country>US</country>
+        </cntaddr>
+        <cntvoice>6173582444</cntvoice>
+        <cntemail>acstokes@bu.edu</cntemail>
+      </cntinfo>
+    </distrib>
+    <distliab>Anyone who use the data need to provide credit by citing Ackley, C. A., Lundberg, D. J., Ma, L., Elo, I. T., Preston, S. H., &amp; Stokes, A. C. (2022). County-level estimates of excess mortality associated with COVID-19 in the United States. SSM-population health, 17, 101021.</distliab>
+    <stdorder>
+      <digform><digtinfo>
+          <formname>Digital Data</formname>
+        </digtinfo>
+        <digtopt><onlinopt><computer><networka><networkr>https://github.com/Vital-Stats-Integrity-Proj/county-level-estimates-of-excess-mortality</networkr></networka></computer></onlinopt></digtopt></digform>
+      <fees>None</fees>
+    </stdorder>
+  </distinfo>
+  <metainfo>
+    <metd>20220719</metd>
+    <metc>
+      <cntinfo>
+        <cntperp>
+          <cntper>Jospeh Holler</cntper>
+          <cntorg>Middlebury College</cntorg>
+        </cntperp>
+        <cntpos>Assisstant Professor of Geography</cntpos>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>McCardell Bicentennial Hall 634</address>
+          <city>Middlebury</city>
+          <state>VT</state>
+          <postal>05753</postal>
+          <country>US</country>
+        </cntaddr>
+        <cntvoice>8024435992</cntvoice>
+        <cntemail>josephh@middlebury.edu</cntemail>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001-1998</metstdv>
+  </metainfo>
+</metadata>
