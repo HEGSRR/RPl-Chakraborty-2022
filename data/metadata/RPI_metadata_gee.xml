@@ -90,7 +90,7 @@
   </idinfo>
   <dataqual>
     <attracc>
-      <attraccr>We run the generalized estimating equation model with the data and computed the coefficient and p-value, which we then compared them to the original result in the paper to see how the result differ from the original's </attraccr>
+      <attraccr>The quality of the gee data depends on the quality of the COVID-19 excess death rate data. The author of this dataset has summarized several limitations to their dataset. Refer to the table for more detail. On our side,we run the generalized estimating equation model with the data and computed the coefficient and p-value, which we then compared them to the original result in the paper to see how the result differ from the original's </attraccr>
     </attracc>
     <logic>We have checked for data omissions and relevance. We have excluded counties with no data on excess death rate in the dataset before running the model. Please refer to our Rmakrdown for more information. </logic>
     <complete>The dataset only includes data on the contiguous states and on counties with COVID-19 excess death rate data and complete records of disability/poverty/population data. </complete>

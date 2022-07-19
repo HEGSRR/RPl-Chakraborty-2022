@@ -63,8 +63,8 @@
         <placekey>United States</placekey>
       </place>
     </keywords>
-    <accconst>The data is open access under the Creative Commons Attribution 4.0 International (CC BY 4.0)</accconst>
-    <useconst>Anyone who use the data need to provide credit by citing Ackley, C. A., Lundberg, D. J., Ma, L., Elo, I. T., Preston, S. H., &amp; Stokes, A. C. (2022). County-level estimates of excess mortality associated with COVID-19 in the United States. SSM-population health, 17, 101021.</useconst>
+    <accconst>The data is open access under the Creative Commons License 4.0 International (CC-BY-NC-ND)</accconst>
+    <useconst>Anyone is free to copy and redistribute the material in any medium or format. However, anyone who use the data need to provide credit by citing Ackley, C. A., Lundberg, D. J., Ma, L., Elo, I. T., Preston, S. H., &amp; Stokes, A. C. (2022). County-level estimates of excess mortality associated with COVID-19 in the United States. SSM-population health, 17, 101021. Users should also provide a link to the license, and indicate if changes were made.</useconst>
     <ptcontac>
       <cntinfo>
         <cntperp>
@@ -86,7 +86,7 @@
   </idinfo>
   <dataqual>
     <attracc>
-      <attraccr>We created a map visualizing the COVID-19 excess death rate as well as the summary statistics of COVID death rate (min, max, standard deviation, and mean) and we compared our result to Chakraborty's original results to see if similar pattern holds. </attraccr>
+      <attraccr>The author has summarized the limitation of the raw dataset in section 4.1 of the paper. Refer to the paper for more detail. On our side, we also created a map visualizing the COVID-19 excess death rate as well as the summary statistics of COVID death rate (min, max, standard deviation, and mean) and we compared our result to Chakraborty's original results to see if similar pattern holds. </attraccr>
     </attracc>
     <logic>We have checked for the relevance of the dataset and only include the six columns that are relevant to our analysis. </logic>
     <complete>The dataset only includes data on the contiguous states. There are two counties with missing data on excess death rate. </complete>
@@ -202,16 +202,14 @@ We selected columns that are relevant to our analysis to use and combined the da
         <attrlabl>cs_code.x</attrlabl>
         <attrdef>county clusters </attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv>
-          <udom/>
+        <attrdomv><udom/>
         </attrdomv>
       </attr>
       <attr>
         <attrlabl>year</attrlabl>
         <attrdef>year of data collection</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv>
-          <rdom>
+        <attrdomv><rdom>
             <rdommin>2020</rdommin>
             <rdommax>2020</rdommax>
           </rdom>
@@ -221,24 +219,21 @@ We selected columns that are relevant to our analysis to use and combined the da
         <attrlabl>state</attrlabl>
         <attrdef>name of state</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv>
-          <udom/>
+        <attrdomv><udom/>
         </attrdomv>
       </attr>
       <attr>
         <attrlabl>cs_name</attrlabl>
         <attrdef>individual county name</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv>
-          <udom/>
+        <attrdomv><udom/>
         </attrdomv>
       </attr>
       <attr>
         <attrlabl>excess_deaths_2020</attrlabl>
         <attrdef>excess deaths</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv>
-          <rdom>
+        <attrdomv><rdom>
             <rdommin>-218.697858550897</rdommin>
             <rdommax>15955.4373274248</rdommax>
           </rdom>
@@ -248,8 +243,7 @@ We selected columns that are relevant to our analysis to use and combined the da
         <attrlabl>excess_death_rate_2020</attrlabl>
         <attrdef>excess death rate</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv>
-          <rdom>
+        <attrdomv><rdom>
             <rdommin>-0.929632303023551</rdommin>
             <rdommax>6.24684309176366</rdommax>
           </rdom>
