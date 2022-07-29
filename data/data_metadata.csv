@@ -1,5 +1,5 @@
 file_path,file_name,format,sources,metadata,status
-raw\public,ruralurbancodes2013.xls,Excel spreadsheet,U.S. Department of Agriculture,RPI_usda_metadata.pdf,provided
+raw\public,ruralurbancodes2013.xls,Excel spreadsheet,U.S. Department of Agriculture,RPI_metadata_usda.pdf,provided
 raw\private,excess_death.RDS,r data file ,"Ackley, Calvin A., et al. 2022 - author provided data",RPI__metadata_death.xml,provided
 raw\public,acs2020.gpkg,Geopackage,TidyCensus Package call to ACS 2020 5-year,"RPI_metadata_acs.xml, ACSST5Y2020.S1810_metadata.csv, ACSDT5Y2020.C18130_metadata.csv",provided; derived
 derived\public,gee_data.gpkg,Geopackage,Data generated in R markdown from excess_death.RDS and acs2020.gpkg,RPI_metadata_gee.xml,derived 

@@ -759,7 +759,10 @@ https://data.library.virginia.edu/getting-started-with-generalized-estimating-eq
 
 
 ```{r visualize the distribution of excess death rate}
-ggplot(acs_covid, aes(x=excess_death_rate_2020)) + geom_histogram()
+
+ggplot(acs_covid, aes(x=excess_death_rate_2020)) + 
+  geom_histogram(color="darkblue", fill="lightblue") +
+  labs(x= "Excess Death Rate in 2020", y = "Count")
 ```
 
 
